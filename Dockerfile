@@ -2,7 +2,7 @@
 # https://github.com/phusion/baseimage-docker/blob/master/Changelog.md
 FROM phusion/baseimage:0.9.18
 
-MAINTAINER Brian Fisher <tbfisher@gmail.com>
+MAINTAINER Juanjo López <juanjo.lopez@gmail.com>
 
 RUN locale-gen en_US.UTF-8
 ENV LANG       en_US.UTF-8
