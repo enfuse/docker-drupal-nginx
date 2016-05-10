@@ -79,10 +79,11 @@ RUN cd /usr/local/bin/ && \
 RUN cd ~ && curl \
     https://getcomposer.org/installer -L -o installer && \
     php installer && \
-    mv composer.phar /usr/local/bin/composer
+    mv composer.phar /usr/local/bin/composer && \
+    rm installer
 
 # Terminus
-RUN composer require pantheon-systems/terminus
+RUN curl https://github.com/pantheon-systems/terminus/releases/download/0.11.1/terminus.phar -L -o /usr/local/bin/terminus && chmod +x /usr/local/bin/terminus
 
 # Configure
 RUN cp /etc/php5/fpm/php.ini /etc/php5/fpm/php.ini.bak
