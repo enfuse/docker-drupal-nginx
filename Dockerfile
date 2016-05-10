@@ -75,16 +75,6 @@ RUN cd /usr/local/bin/ && \
     curl https://drupalconsole.com/installer -L -o drupal && \
     chmod +x drupal
 
-# Composer
-RUN cd ~ && curl \
-    https://getcomposer.org/installer -L -o installer && \
-    php installer && \
-    mv composer.phar /usr/local/bin/composer && \
-    rm installer
-
-# Terminus
-RUN curl https://github.com/pantheon-systems/terminus/releases/download/0.11.1/terminus.phar -L -o /usr/local/bin/terminus && chmod +x /usr/local/bin/terminus
-
 # Configure
 RUN cp /etc/php5/fpm/php.ini /etc/php5/fpm/php.ini.bak
 COPY ./conf/php5/fpm/php.ini /etc/php5/fpm/php.ini
@@ -117,6 +107,21 @@ RUN mkdir -p /var/www/web && \
     echo '<?php phpinfo();' > /var/www/web/index.php && \
     chgrp www-data /var/www_files && \
     chmod 775 /var/www_files
+
+# Composer
+RUN cd ~ && curl \
+    https://getcomposer.org/installer -L -o installer && \
+    php installer && \
+    mv composer.phar /usr/local/bin/composer && \
+    rm installer
+
+# Terminus
+RUN curl https://github.com/pantheon-systems/terminus/releases/download/0.11.1/terminus.phar -L -o /usr/local/bin/terminus && chmod +x /usr/local/bin/terminus
+
+# Terminatur
+RUN composer create-project kalamuna/terminatur $HOME/.drush/terminatur -s dev --no-dev -n
+# Clear Drush's cache.
+RUN drush cc drush
 
 # Use baseimage-docker's init system.
 ADD init/ /etc/my_init.d/
