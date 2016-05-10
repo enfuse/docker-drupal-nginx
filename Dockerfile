@@ -75,6 +75,15 @@ RUN cd /usr/local/bin/ && \
     curl https://drupalconsole.com/installer -L -o drupal && \
     chmod +x drupal
 
+# Composer
+RUN cd ~ && curl \
+    https://getcomposer.org/installer -L -o installer && \
+    php installer && \
+    mv composer.phar /usr/local/bin/composer
+
+# Terminus
+RUN composer require pantheon-systems/terminus
+
 # Configure
 RUN cp /etc/php5/fpm/php.ini /etc/php5/fpm/php.ini.bak
 COPY ./conf/php5/fpm/php.ini /etc/php5/fpm/php.ini
