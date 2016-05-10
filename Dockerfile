@@ -4,9 +4,9 @@ FROM phusion/baseimage:0.9.18
 
 MAINTAINER Juanjo López <juanjo.lopez@gmail.com>
 
-RUN locale-gen en_US.UTF-8
-ENV LANG       en_US.UTF-8
-ENV LC_ALL     en_US.UTF-8
+RUN locale-gen es_ES.UTF-8
+ENV LANG       es_ES.UTF-8
+ENV LC_ALL     es_ES.UTF-8
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
@@ -104,9 +104,9 @@ RUN mkdir /var/www_files && \
     chown -R www-data:www-data /var/www_files
 # Virtualhost is configured to serve from /var/www/web.
 RUN mkdir -p /var/www/web && \
-    echo '<?php phpinfo();' > /var/www/web/index.php && \
-    chgrp www-data /var/www_files && \
-    chmod 775 /var/www_files
+  echo '<?php phpinfo();' > /var/www/web/index.php && \
+  chgrp www-data /var/www_files && \
+  chmod 775 /var/www_files
 
 # Composer
 RUN cd ~ && curl \
@@ -117,11 +117,12 @@ RUN cd ~ && curl \
 
 # Terminus
 RUN curl https://github.com/pantheon-systems/terminus/releases/download/0.11.1/terminus.phar -L -o /usr/local/bin/terminus && chmod +x /usr/local/bin/terminus
+RUN terminus art druplicon
 
-# Terminatur
-RUN composer create-project kalamuna/terminatur $HOME/.drush/terminatur -s dev --no-dev -n
-# Clear Drush's cache.
-RUN drush cc drush
+# User permission fix
+RUN usermod -u 1000 www-data
+RUN usermod -u 1000 www-data
+RUN usermod -a -G users www-data
 
 # Use baseimage-docker's init system.
 ADD init/ /etc/my_init.d/
