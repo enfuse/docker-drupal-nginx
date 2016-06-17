@@ -19,7 +19,7 @@ See [Drupal Development with Docker Compose | Chapter Three](https://www.chapter
 Extend this container as needed, with a `Dockerfile`
 
 ```dockerfile
-FROM tbfisher/drupal-nginx:php-5.6.x
+FROM juanjol/drupal-nginx:php-5.6.x
 
 # Configure files directory.
 RUN mkdir -p /var/www_files/public && \
