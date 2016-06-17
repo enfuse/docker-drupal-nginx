@@ -6,8 +6,6 @@ Nginx and PHP-fpm configured for Drupal, with
 -   [Drupal Console](https://drupalconsole.com/)
 -   [Xdebug](https://xdebug.org/)
 -   [Mailhog](https://github.com/mailhog/MailHog) support
--   [Composer](https://getcomposer.org/)
--   [Terminus](https://github.com/pantheon-systems/terminus/) Pantheon integration
 
 Tags:
 
@@ -23,7 +21,7 @@ See [Drupal Development with Docker Compose | Chapter Three](https://www.chapter
 Extend this container as needed, with a `Dockerfile`
 
 ```dockerfile
-FROM enfuse/docker-drupal-nginx:php-5.6.x
+FROM juanjol/drupal-nginx:php-5.6.x
 
 # Configure files directory.
 RUN mkdir -p /var/www_files/public && \
@@ -55,7 +53,8 @@ mail:
 
 web:
   # this references the dockerfile above
-  build: ../../build/drupal-nginx-php56x
+  # image:
+  build: .
   ports:
    - "80"
    - "443"
