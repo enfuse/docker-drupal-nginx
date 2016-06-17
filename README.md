@@ -21,7 +21,7 @@ See [Drupal Development with Docker Compose | Chapter Three](https://www.chapter
 Extend this container as needed, with a `Dockerfile`
 
 ```dockerfile
-FROM tbfisher/drupal-nginx:php-5.6.x
+FROM juanjol/drupal-nginx:php-5.6.x
 
 # Configure files directory.
 RUN mkdir -p /var/www_files/public && \
@@ -53,7 +53,8 @@ mail:
 
 web:
   # this references the dockerfile above
-  build: ../../build/drupal-nginx-php56x
+  # image:
+  build: .
   ports:
    - "80"
    - "443"
