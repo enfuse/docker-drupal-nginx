@@ -37,6 +37,7 @@ RUN add-apt-repository ppa:ondrej/php5 && \
         php5-sqlite     \
         php5-tidy       \
         php5-xdebug     \
+        memcached       \
         php5-xhprof
 RUN service php5-fpm stop
 
